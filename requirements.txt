@@ -1,0 +1,14 @@
+fastapi
+uvicorn
+pydantic
+
+rasa
+
+torch
+transformers
+datasets
+scikit-learn
+seqeval
+
+numpy
+pandas
