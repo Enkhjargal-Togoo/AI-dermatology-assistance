@@ -22,9 +22,8 @@ This project contains three main components:
 - Rasa chatbot (rasa_app/)
 - BioBERT fine-tuning and inference code (Biobert/)
 - API / orchestration layer (src/)
-
+  
 ### 1. Create environment
-```bash
 python -m venv .venv
 source .venv/bin/activate
 .venv\Scripts\activate
