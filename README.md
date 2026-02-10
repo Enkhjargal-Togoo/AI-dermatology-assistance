@@ -27,7 +27,11 @@ Please see Chatbot Guideline.doc
 Not a medical diagnosis tool.
 
 ## Contrubutions:
-It is a group project including all other group members.
+It is a group project including all other group members. So I uploaded only Rasa chatbot part and fine-tuned Biobert model part. 
+
+## Model files
+Trained BioBERT model checkpoints are not stored in this repository due to file size limits.
+This repository contains training and evaluation code only.
 
 ## Next Steps
 - Improve dataset
