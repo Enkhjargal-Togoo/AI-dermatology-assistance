@@ -1,0 +1,83 @@
+# The config recipe.
+# https://rasa.com/docs/rasa/model-configuration/
+recipe: default.v1
+
+# The assistant project unique identifier
+# This default value must be replaced with a unique assistant name within your deployment
+assistant_id: 20250406-191718-immense-fern
+
+# Configuration for Rasa NLU.
+# https://rasa.com/docs/rasa/nlu/components/
+language: en
+
+pipeline: null
+version: "3.1"
+
+#####################################################
+#  NLU pipeline
+#####################################################
+pipeline:
+
+  # 1  Tokenisation & regex helpers
+  - name: WhitespaceTokenizer
+  - name: RegexFeaturizer              # catches `image reccode …` etc.
+
+  # 2  Classic lexical features
+  - name: LexicalSyntacticFeaturizer
+  - name: CountVectorsFeaturizer       # word n-grams
+  - name: CountVectorsFeaturizer       # char 3–5-grams
+    analyzer: char_wb
+    min_ngram: 3
+    max_ngram: 5
+
+  # 3  Main intent / entity model
+  - name: DIETClassifier
+    epochs: 100
+    learning_rate: 0.001
+    constrain_similarities: true
+
+  # 4  (rare) synonym normalisation
+  - name: EntitySynonymMapper
+
+  # 5  Retrieve-style FAQs (optional; keeps fallback answers tidy)
+  - name: ResponseSelector
+    epochs: 50
+
+  # 6  NLU confidence fallback
+  - name: FallbackClassifier           # triggers `nlu_fallback`
+    threshold: 0.30                    # below → fallback intent
+    ambiguity_threshold: 0.10          # two intents too close → fallback
+
+#####################################################
+#  Dialogue policies
+#####################################################
+policies:
+
+  # 1  Rule engine — deterministic behaviour first
+  - name: RulePolicy
+    core_fallback_threshold: 0.30
+    core_fallback_action_name: "action_default_fallback"
+    enable_fallback_prediction: true
+
+  # 2  Transformer (TED) — learns from stories
+  - name: TEDPolicy
+    max_history: 6
+    epochs: 100
+    constrain_similarities: true
+
+  # 3  Unexpected-intent safeguard
+  - name: UnexpecTEDIntentPolicy
+    max_history: 6
+    epochs: 50
+
+  # 4  Exact matches to short story snippets
+  - name: MemoizationPolicy
+    max_history: 5
+
+#####################################################
+#  Session settings
+#####################################################
+session_config:
+  session_expiration_time: 60          # minutes of inactivity → new session
+  carry_over_slots_to_new_session: true
+

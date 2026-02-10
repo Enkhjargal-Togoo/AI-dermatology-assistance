@@ -1,0 +1,69 @@
+version: "3.1"
+
+intents:
+  - greet
+  - goodbye
+  - affirm
+  - deny
+  - mood_great
+  - mood_unhappy
+  - bot_challenge
+  - describe_symptom
+  - image_diagnosis
+
+responses:
+  utter_greet:
+  - text: "Hi, I'm a dermatology chatbot. I'm here to help you with skin concerns."
+
+  utter_goodbye:
+  - text: "Goodbye! Take care and feel free to contact me anytime."
+
+  utter_ask_for_image:
+    - text: "Could you upload a clear photo of the affected skin area?"
+
+  utter_ask_for_symptoms:
+    - text: "Please describe what you’re experiencing so I can help."
+
+  utter_complete_diagnosis:
+    - text: "Great, I have everything I need – analysing now…"
+
+  utter_remember:
+    - text: "Remember, if you need a preliminary diagnosis, you must attach your image and describe your symptoms."
+
+
+slots:
+  symptom_text:
+    type: text
+    influence_conversation: true
+    mappings:                        # ← mandatory from Rasa 3.5 onward
+      - type: custom                 #   (filled only by your actions)
+  
+  symptom_intent: 
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: custom
+
+  symptom_entities:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: custom
+
+  image_result:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: custom
+
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
+
+actions:
+  - action_handle_user_input
+  - action_check_completion
+  - action_process_symptom_photo
+  - action_talk_to_llama
+  - action_predicted_intent_symptoms

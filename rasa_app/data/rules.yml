@@ -1,0 +1,29 @@
+version: "3.1"
+
+rules:
+
+- rule: Handle casual greetings
+  steps:
+    - intent: greet
+    - action: utter_greet 
+
+- rule: Say goodbye anytime the user says goodbye
+  steps:
+  - intent: goodbye
+  - action: utter_goodbye
+
+- rule: handle image messages
+  steps:
+    - intent: image_diagnosis
+    - action: action_predicted_intent_symptoms
+
+# --- symptom sentences ----
+- rule: handle symptom messages
+  steps:
+    - intent: describe_symptom
+    - action: action_predicted_intent_symptoms
+
+- rule: pass every user message through the handler
+  steps:
+    - intent: nlu_fallback          # catches “anything”
+    - action: action_predicted_intent_symptoms

@@ -1,0 +1,46 @@
+version: "3.1"
+
+nlu:
+- intent: greet
+  examples: |
+    - hey
+    - hello
+    - hi
+    - hello there
+    - good morning
+    - good evening
+    - moin
+    - hey there
+    - let's go
+    - hey dude
+    - goodmorning
+    - goodevening
+    - good afternoon
+    - how are you
+
+- intent: goodbye
+  examples: |
+    - cu
+    - good by
+    - cee you later
+    - good night
+    - bye
+    - goodbye
+    - have a nice day
+    - see you around
+    - bye bye
+    - see you later
+
+
+- intent: describe_symptom
+  examples: |
+    - I have a painful rash on my arms
+    - My skin is itchy and dry
+    - There is redness and bumps on my face
+    - I have had a burning sensation on my back
+
+- intent: image_diagnosis
+  examples: |
+    - regex: ^preliminar diagnosis: psoriasis$
+    - regex: ^preliminar diagnosis: healthy skin$
+
