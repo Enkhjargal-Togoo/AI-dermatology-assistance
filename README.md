@@ -18,6 +18,23 @@ A multimodal pipeline combining:
 Python, Fine-tuned Biobert model, Fine-tuned Llama model, Fine-tuned Yolov8n model, Rasa framework, FastAPI connections, NextJS
 
 ## How to Run
+This project contains three main components:
+- Rasa chatbot (rasa_app/)
+- BioBERT fine-tuning and inference code (Biobert/)
+- API / orchestration layer (src/)
+
+### 1. Create environment
+```bash
+python -m venv .venv
+source .venv/bin/activate
+.venv\Scripts\activate
+### 2. Intall Dependencies
+pip install -r requirements.txt
+### 3. Run rasa chatbot
+cd rasa_app
+rasa train
+rasa run --enable-api
+### 4. For more detailed instructions: 
 Please see Chatbot Guideline.doc
 
 ## Results
